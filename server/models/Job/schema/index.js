@@ -7,7 +7,7 @@ const jobSchema = new mongoose.Schema({
     jobProgress: { type: String, enum: ["todo", "doing", "done"], default: "todo" },
     //@ts-ignore
     permission: { type: Array, default: function () { return ["admin", this.createdBy]; } },
-    createdAt: { type: String, required: true, default: Date.now },
+    createdAt: { type: Date, required: true, default: Date.now },
     dueDate: { type: Date },
     isAlert: { type: Boolean, required: true, default: false }
 });
