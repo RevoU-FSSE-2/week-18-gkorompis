@@ -47,3 +47,26 @@ export interface JobQuery {
     isAlert?: boolean,
     dueDate?: Date,
 }
+/********** RESET PASSS */
+
+export interface ResetPassData {
+    username?: string,
+    email?: string,
+    token?: string
+}
+export interface ResetPassDocument {
+    username?: string,
+    email?: string,
+    token?: string,
+    _id?: string
+}
+export interface ResetPassQuery {
+    username?: string,
+    email?: string,
+    token?: string,
+    _id?: string
+}
+
+export interface ErrorResponse {
+    message: string;
+}
