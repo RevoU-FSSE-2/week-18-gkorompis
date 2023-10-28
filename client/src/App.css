@@ -1,0 +1,23 @@
+.app-pages {
+    margin: 0;
+    background-color: rgb(252, 250, 247);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1, h2, h3, p {
+    margin: 0px;
+    color: #F1F0E8;
+}
+label {
+    margin: 0px;
+    color: #F1F0E8;
+}
+.div-center-xy-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
