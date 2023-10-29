@@ -1,12 +1,18 @@
 import { CustomizedForm } from "../../components";
 import * as Yup from 'yup'
 
+import { useDispatch } from 'react-redux';
+import { navigationAction } from '../../actions';
+import { AnyAction } from '@reduxjs/toolkit';
+
 interface LoginFormInitialValues {
     username: string,
     password: string
 }
 
 const LoginPageMain = () =>{
+
+    const dispatch = useDispatch();
     
     const loginFormFields = [
         {name: "username", label: "username", type: "text"},
@@ -19,12 +25,18 @@ const LoginPageMain = () =>{
     }
 
     const onSubmitFormik = async (values:any) => {
-        console.log("form value", values)
+        console.log("form value", values);
+
+        const reduxState = {isToken: true}
+        dispatch(navigationAction(reduxState) as unknown as AnyAction);
+
     }
 
     const validationSchema = {
         username: Yup.string().required("Username is required"),
         password: Yup.string().required("Password is required")
+        .min(8, 'Password must be at least 8 characters long')
+        .matches(/^(?=.*[a-zA-Z])(?=.*\d)/, 'Password must be alphanumeric')
     }
 
     const customFormStyles = {

@@ -4,15 +4,15 @@
     font-family: "app-logo-font";
     src: url('../../assets/fonts/syn-nova/SYNNova-Bold.otf') format('opentype');
 }
-.app-landing-page{
-    background-color: aquamarine;
+.app-login-page{
+    /* background-color: aquamarine; */
     display: flex;
     flex-direction: column;
     align-items: center;
     /* height: 100vh; */
 }
 .app-main{
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     display: flex;
     flex-direction: column;
     align-items: center;

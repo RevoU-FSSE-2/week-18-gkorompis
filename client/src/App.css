@@ -1,11 +1,13 @@
 .app-pages {
     margin: 0;
-    background-color: rgb(252, 250, 247);
+    /* background-color: rgb(252, 250, 247); */
+    background-color: #65647C;
     width: 100vw;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all 1s;
 }
 h1, h2, h3, p {
     margin: 0px;
@@ -21,3 +23,5 @@ label {
     justify-content: center;
     align-items: center;
 }
+
+

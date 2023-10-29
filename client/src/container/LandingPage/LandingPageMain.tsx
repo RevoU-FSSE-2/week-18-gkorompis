@@ -11,7 +11,7 @@ import { AnyAction } from '@reduxjs/toolkit';
 const LandingPageMain = () =>{
 
     // const [isLogin, setIsLogin] = useState(false);
-     const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const customizedButtonHandler = () =>{
         console.log("customized button clicked");
