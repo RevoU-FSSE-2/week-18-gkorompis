@@ -1,9 +1,6 @@
 
 
-@font-face {
-    font-family: "app-logo-font";
-    src: url('../../assets/fonts/syn-nova/SYNNova-Bold.otf') format('opentype');
-}
+
 .app-landing-page{
     /* background-color: aquamarine; */
     display: flex;
@@ -11,15 +8,9 @@
     align-items: center;
     /* height: 100vh; */
 }
-.app-main{
-    /* background-color: aquamarine; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* height: 100vh;; */
-}
+
 .app-landing-page-main {
-    /* background-color: #65647C; */
+    /* background-color: #23a445; */
     /* background-image: url("../../../public/15.png"); */
     /* background-size:cover; */
     display: flex;
@@ -30,7 +21,7 @@
     height: 100vh;
 }
 .app-landing-page-main > * {
-    margin-top:30px
+    margin-top:030px
 }
 .app-landing-page-main-h1 {
     font-family:"app-logo-font";
@@ -39,9 +30,9 @@
     transform: translateY(0px);
     transition: 1s;
 }
-.transformed {
+/* .transformed {
     transform: translateY(-20px);
-}
+} */
 /* .app-pages-home {
     background-image: url("../../../public/15.png");
 } */

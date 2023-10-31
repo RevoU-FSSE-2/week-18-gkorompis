@@ -1,10 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { navigationReducer } from "../reducers";
+import { navigationReducer, jobsReducer, cacheReducer } from "../reducers";
+
 import thunk from "redux-thunk";
 
 const store = configureStore({
     reducer: {
-        navigation: navigationReducer
+        navigation: navigationReducer,
+        jobs: jobsReducer,
+        cache: cacheReducer
     },
     middleware: [thunk]
 })

@@ -11,7 +11,10 @@ const jobSchema = new mongoose.Schema({
     permission: {type:Array, default: function(){return ["admin", this.createdBy]}},
     createdAt: {type:Date, required: true, default: Date.now},
     dueDate: {type: Date},
-    isAlert: {type: Boolean, required: true, default: false }
+    isAlert: {type: Boolean, required: true, default: false },
+    priority: {type: String, enum: ["HIGH", "MED", "LOW"], default: "LOW"},
+    //@ts-ignore
+    externalId: {type:String, default: "" }
 })
 
 const Job = mongoose.model<JobDocument>('Job', jobSchema);

@@ -1,21 +1,21 @@
 
 import "./index.css"
-import { LandingPage, LoginPage } from "../../container";
+import { LandingPage, LoginPage, JobBoardPage } from "../../container";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect , useState} from "react";
-import { navigationAction } from "../../actions";
-
+import { navigationAction} from "../../actions";
 import { AnyAction } from "@reduxjs/toolkit";
 
 
 const changeBackgroundPerInterval = (cb:any) =>{
     const interval = setInterval(() => {
-            const min = 1;
-            const max = 8;
+            const min = 100;
+            const max = 101;
             const newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
             cb(newRandomNumber);
             // console.log(">>>random number", newRandomNumber);
-        }, 13000); // 30 seconds in milliseconds
+        }, 30000); // 30 seconds in milliseconds
 
         return () => {
             clearInterval(interval);
@@ -23,7 +23,7 @@ const changeBackgroundPerInterval = (cb:any) =>{
 }
 
 const AppComponent = () =>{
-    const [randomNumber, setRandomNumber] = useState(1);
+    const [randomNumber, setRandomNumber] = useState(0);
     const appPagesStyle = {
     backgroundImage: `url("/app-bg/appBg${randomNumber}.png")`,
     backgroundSize: "cover",
@@ -40,7 +40,7 @@ const AppComponent = () =>{
         const reduxState = {isLogin: false}
         dispatch(navigationAction(reduxState) as unknown as  AnyAction);
 
-        changeBackgroundPerInterval(setRandomNumber);
+        // changeBackgroundPerInterval(setRandomNumber);
     }, [dispatch])
 
     return (
@@ -50,7 +50,7 @@ const AppComponent = () =>{
                 error ? <h1> error </h1> :
                 (<>
                     {
-                        isToken ? <h1>Task Board</h1> : 
+                        isToken ? <JobBoardPage/> : 
                         (
                             <>
                                 <LandingPage/>
