@@ -14,10 +14,10 @@ const LandingPageMain = () =>{
     const dispatch = useDispatch();
 
     const customizedButtonHandler = () =>{
-        console.log("customized button clicked");
+        console.log("customized button clicked now");
         // setIsLogin(true);
         
-        const reduxState = {isLogin: true}
+        const reduxState = {isLogin: true, isToken: false}
         dispatch(navigationAction(reduxState) as unknown as AnyAction);
     }
     const customizedButtonProps= {
@@ -34,7 +34,7 @@ const LandingPageMain = () =>{
     return (
        
         <div className="app-landing-page-main">
-            <h1 className={"app-landing-page-main-h1"} >jobprints</h1>
+            <h1 className={"app-landing-page-main-h1"}>jobsprint</h1>
             <CustomizedButton 
                 componentColor={customizedButtonProps.componentColor}
                 buttonName={customizedButtonProps.buttonName}

@@ -6,7 +6,7 @@ const actionTypes = {
     error: 'NAVIGATION_ERROR'
 }
 const stateDefault = {
-    loading: true,
+    loading: false,
     payload: false
 }
 const navigationReducer:Reducer = (state=stateDefault, action) =>{

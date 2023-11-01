@@ -20,6 +20,7 @@ const fetchCollectionJobs = async (baseUrl:string) =>{
 
 const jobsAction = (reduxState:any) => async (dispatch:Dispatch) =>{
     try {
+        console.log(">>>jobs action triggered")
         //loading
         dispatch({
             type: actionTypes.loading,
@@ -28,6 +29,7 @@ const jobsAction = (reduxState:any) => async (dispatch:Dispatch) =>{
         //action
         const response = await fetchCollectionJobs(baseUrl);
         reduxState = response;
+        console.log(">>>reduxState", {response})
         
         //success
         dispatch({

@@ -16,7 +16,7 @@ const Unit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //request parameters
         log(`${controllerName} at ${group}`);
-        const query = req.query || {};
+        const query = (req && req.params) || (req && req.query) || {};
         const update = req.body || {};
         //dao
         //foo

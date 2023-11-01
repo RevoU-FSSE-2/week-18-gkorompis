@@ -6,7 +6,8 @@
 .app-pages {
     margin: 0;
     /* background-color: rgb(252, 250, 247); */
-    background-color:#65647C;
+    /* background-color:#65647C; */
+    color: #F1F0E8;
     width: 100vw;
     height: 100vh;
     display: flex;

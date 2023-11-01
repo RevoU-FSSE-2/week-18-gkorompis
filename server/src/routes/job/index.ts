@@ -14,7 +14,7 @@ const {
 
 jobRoute.post('/', postController)
 jobRoute.get('/', getController)
-jobRoute.put('/', updateController)
-jobRoute.delete('/',deleteController)
+jobRoute.put('/one/:_id', updateController)
+jobRoute.delete('/one/:_id',deleteController)
 
 export default jobRoute;

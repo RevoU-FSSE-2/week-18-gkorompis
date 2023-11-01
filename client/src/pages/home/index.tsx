@@ -37,9 +37,10 @@ const AppComponent = () =>{
     const isToken = payload && payload.isToken;
     
     useEffect(()=>{
-        const reduxState = {isLogin: false}
-        dispatch(navigationAction(reduxState) as unknown as  AnyAction);
-
+        if(!isToken){
+            const reduxState = {isLogin: false}
+            dispatch(navigationAction(reduxState) as unknown as  AnyAction);
+        }
         // changeBackgroundPerInterval(setRandomNumber);
     }, [dispatch])
 

@@ -1,4 +1,5 @@
 
+import "./index.css"
 import * as Yup from 'yup';
 import { Formik, Form, FormikValues, Field, ErrorMessage } from 'formik';
 import { Input, Form as AntdForm } from 'antd';
@@ -13,10 +14,14 @@ interface Props {
         label: any,
         button: any
     },
-    formName: string
+    formName: string,
+    cb: any,
+    isCancelButton:boolean
 }
 
-const TemplateForm = ({fields, customFormStyles, formName }:Props) =>{
+
+
+const TemplateForm = ({fields, customFormStyles, formName, cb, isCancelButton }:Props) =>{
     return(
         <Form>
             {
@@ -37,9 +42,19 @@ const TemplateForm = ({fields, customFormStyles, formName }:Props) =>{
                     )
                 })
             }
-            <div className="login-button page-button">
-                <button style={customFormStyles.button} type="submit">{formName} </button>
+            <div className="page-button-group">
+                <div className="submit-button page-button">
+                    <button style={customFormStyles.button} type="submit">{formName} </button>
+                </div>
+                {
+                    isCancelButton ? 
+                    <div className="cancel-button page-button">
+                        <button style={customFormStyles.button} type="button" onClick={cb}>cancel</button>
+                    </div> : null
+                }
+                
             </div>
+            
         </Form>
     )
 };
@@ -49,7 +64,9 @@ const CustomizedForm =<T extends FormikValues > ({
     onSubmitFormik,
     validationSchema,
     customFormStyles,
-    formName
+    formName,
+    cb,
+    isCancelButton
 }:CustomizedFormProps<T>) =>{
 
     // const [isLoading, setIsLoading] = useState("");
@@ -66,7 +83,7 @@ const CustomizedForm =<T extends FormikValues > ({
                         return onSubmitFormik;
                         }
                     }}>
-                    {() => {return<TemplateForm fields={fields} customFormStyles={customFormStyles} formName={formName}/>}}
+                    {() => {return<TemplateForm fields={fields} customFormStyles={customFormStyles} formName={formName} cb={cb} isCancelButton={isCancelButton}/>}}
                 </Formik>
             </div>
         </>

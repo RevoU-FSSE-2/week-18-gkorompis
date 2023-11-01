@@ -1,15 +1,17 @@
 import { useState } from "react";
 import "./index.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { cacheAction } from "../../actions";
 import { AnyAction } from "@reduxjs/toolkit";
 
-const SearchBar = ({searchData}:any) =>{
+const SearchBar = ({searchData, cacheName}:any) =>{
 
     const [searchText, setSearchText] = useState('');
 
     const dispatch = useDispatch();
-
+    const cacheState = useSelector((state:any)=> state.cache);
+    const payload = cacheState && cacheState.payload;
+    
 
     const handleSearch = (data:never[]) => {
 
@@ -22,10 +24,14 @@ const SearchBar = ({searchData}:any) =>{
         }
             return false;
         });
-        const caches = {
-            jobsCache: results
-        }
-        dispatch( cacheAction(caches) as unknown as AnyAction)
+        const newField:any = {};
+        newField[cacheName] = results;
+
+        const newCache = {...payload, ...newField};
+        console.log("newCache", newCache);
+
+        
+        dispatch( cacheAction(newCache) as unknown as AnyAction)
     };
 
     const handleEnter = (e:any) =>{

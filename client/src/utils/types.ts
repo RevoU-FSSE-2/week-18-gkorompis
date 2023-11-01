@@ -21,5 +21,7 @@ export interface CustomizedFormProps <T> {
       label: any,
       button: any
     },
-    formName: string
+    formName: string,
+    cb?: any,
+    isCancelButton: boolean
 }

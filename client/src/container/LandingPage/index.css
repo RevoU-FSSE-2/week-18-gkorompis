@@ -27,7 +27,7 @@
     font-family:"app-logo-font";
     color: #F1F0E8;
     font-size: 67px;
-    transform: translateY(0px);
+    transform: translateY(-5px);
     transition: 1s;
 }
 /* .transformed {

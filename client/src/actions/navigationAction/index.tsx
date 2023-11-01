@@ -8,13 +8,14 @@ const actionTypes = {
 
 const navigationAction = (reduxState:any) => async (dispatch:Dispatch) =>{
     try {
+        
         //loading
         dispatch({
             type: actionTypes.loading,
         });
 
         //action
-
+        console.log("login", {reduxState})
         //success
         dispatch({
             type: actionTypes.success,

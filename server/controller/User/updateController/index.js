@@ -15,7 +15,7 @@ const Unit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //request parameters
         log(`${controllerName} at ${group}`);
-        const query = req.query || {};
+        const query = req.params || req.query || {};
         const update = req.body || {};
         //dao
         const response = yield User.updateDocByQuery({ query, update });

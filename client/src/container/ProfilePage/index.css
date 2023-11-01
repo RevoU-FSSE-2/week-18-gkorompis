@@ -1,0 +1,120 @@
+.app-jobsboard-page{
+    display: grid;
+    /* background-color: aqua; */
+    grid-template-columns: 5% 90%;
+    width: 100vw;
+    height: 50vh;
+    /* margin:5vh; */
+    /* background-color: rgba(72, 68, 68, 0.325);
+    backdrop-filter: blur(13px); */
+}
+@media screen and (max-width: 500px) {
+    .app-jobsboard-page{
+        grid-template-columns: 9% 90%;
+    }
+    
+}
+
+.app-jobsboard-page-main{
+    background-color: #2c2b29;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding-top: 40px;
+    width: 100%;
+    margin-top: 7vh;
+}
+.app-jobsboard-page-main-logo-font {
+    font-family: "app-logo-font";
+    color: #F1F0E8;
+    font-size: 44px;
+    transform: translateY(0px);
+    transition: 1s;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    /* background-color: black; */
+}
+.jobcard-grid-col2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 230px));
+    transition: 0.5s;
+    row-gap: 30px;
+    /* grid-template-rows: 280px; */
+    column-gap: 20px;
+    justify-content: center;
+    /* background-color: antiquewhite; */
+}
+
+@media screen and (max-width: 500px) {
+    .jobcard-grid-col2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 230px));
+        transition: 0.5s;
+        row-gap: 20px;
+        /* grid-template-rows: 280px; */
+        column-gap: 20px;
+        justify-content: center;
+        /* background-color: antiquewhite; */
+    }
+}
+
+
+
+.app-logo-div{
+    display: flex;
+    /* background-color: aquamarine; */
+}
+.app-logo-img{
+    width: 26px;
+    height: 26px;
+    margin-top: 20px;
+    margin-right: 10px;
+    filter: invert(0.9);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.app-logo-img:hover{
+    filter: invert(0.1);
+}
+
+.app-icon-bar {
+    /* background-color: aqua; */
+    width: 190px;
+    height: 100%;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+.app-icon-container {
+    /* background-color: black; */
+    height: 7vh;
+    margin-top: 5vh;
+    width: 100%;
+    display: flex;
+    /* border-bottom: solid 1px #F1F0E8; */
+}
+.app-logo-add {
+    transform: translateY(4px)
+}
+.app-logo-loupe {
+    transform: translateY(3px)
+}
+
+.dialogs {
+    
+    width: 98%;
+    /* background-color: aqua; */
+}
+
+.collection-info-div {
+    /* background-color: aqua; */
+    align-self: start;
+    padding-left: 22.5px;
+    /* justify-self: start; */
+    margin-top: 2vh;
+    /* width: 97%; */
+}
+.collection-info-div > p {
+    font-size: 13px;
+}

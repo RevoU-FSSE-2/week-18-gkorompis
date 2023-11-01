@@ -1,0 +1,43 @@
+/* @keyframes colorChange {
+    0% {
+        background-color: rgb(121, 116, 116);
+        color: #93928c;
+    }
+    50% {
+        background-color: #93928c;
+        color: rgb(121, 116, 116);
+    }
+
+    100% {
+        background-color: rgb(121, 116, 116);
+        color: #93928c;
+    }
+} */
+
+@keyframes colorChange {
+    0% {
+        background-color: rgba(129, 77, 77, 0.915); 
+    }
+
+    50% {
+        background-color: #8f635c; 
+    }
+
+    100% {
+        background-color: rgba(129, 77, 77, 0.915); 
+    }
+}
+
+.component-loading  {
+    font-size: 17px;
+    /* animation: colorChange 2s linear infinite; */
+}
+.page-banner {
+    /* background-color: aliceblue; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding: 10px
+}

@@ -1,0 +1,9 @@
+.page-button-group {
+    display: flex;
+    flex-direction: row;
+    /* background-color: aqua; */
+    justify-content: end;
+}
+.page-button-group > div {
+    margin-left: 8px;
+}

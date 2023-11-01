@@ -1,6 +1,7 @@
 .app-search-bar {
     /* background-color: aqua; */
     width: 100%;
+    margin-top: 13px;
 }
 .app-search-bar-form-item {
     display: flex;

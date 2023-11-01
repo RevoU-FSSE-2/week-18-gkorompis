@@ -1,17 +1,35 @@
 
 import { useEffect, useState} from "react";
-import { AppNavbar, SearchBar } from "../../components";
+import { AppNavbar, LinearProgressMUI, NewJobForm, PageBanner, SearchBar } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 import JobBoardMain from "./JobBoardMain";
-import { jobsAction } from "../../actions";
+import { cacheAction, jobsAction, editingAction } from "../../actions";
 import { AnyAction } from "@reduxjs/toolkit";
 
 const JobBoard = () =>{
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [isLoupe, setIsLoupe] = useState(false);
     const handleLoupe = () =>{
         setIsLoupe(!isLoupe);
+    }
+
+    const handleEditing = (isEditing:boolean) =>{
+        const reduxState = {isEditing: !isEditing}
+        dispatch( editingAction(reduxState) as unknown as AnyAction )
+    }
+
+    const [isNewJob, setIsNewJob] = useState(false);
+    const handleNewJob = () =>{
+        setIsNewJob(!isNewJob);
+        if(isNewJob){
+            dispatch( jobsAction(jobsList) as unknown as AnyAction)
+            dispatch( cacheAction(undefined) as unknown as AnyAction)
+        }
     }
     
     const cachesState = useSelector((state:any)=> state.cache);
@@ -21,12 +39,22 @@ const JobBoard = () =>{
     const jobsState = useSelector((state:any)=> state.jobs);
     const {loading, error, payload}  = jobsState;
     const jobsList = payload && payload || [];
+
+    const reloadJobsState = useSelector((state:any)=> state.cache);
+    const reloadJobsPayload = reloadJobsState && reloadJobsState.payload;
+    const isReload = reloadJobsPayload && reloadJobsPayload.isReload;
+
+    const editingState = useSelector((state:any)=> state.editing);
+    const editingPayload = editingState && editingState.payload;
+    const isEditing = editingPayload && editingPayload.isEditing;
+    console.log("isEditing", isEditing)
     
-    const dispatch = useDispatch();
+    
 
     useEffect(()=>{
+        console.log("use effect triggerred")
         dispatch( jobsAction(jobsList) as unknown as AnyAction)
-    }, [dispatch])
+    }, [dispatch, reloadJobsState])
     return (
         <div className="app-jobsboard-page grid-col-2">
             <header className="app-navbar">
@@ -39,21 +67,23 @@ const JobBoard = () =>{
                 </div>
                 <div className="app-icon-container">
                     <div className="app-icon-bar">
-                        <img className="app-logo-img" src="/add.png"/>
-                        <img className="app-logo-img" src="/add-friend.png"/>
-                        <img className="app-logo-img" src="/loupe.png" onClick={handleLoupe}/>
+                        <img className="app-logo-img app-logo-add" src="/add.png" onClick={handleNewJob}/>
+                        <img className="app-logo-img app-logo-edit" src="/editing.png" onClick={()=>handleEditing(isEditing)}/>
+                        <img className="app-logo-img app-logo-loupe" src="/loupe.png" onClick={handleLoupe}/>
                         
                     </div>
                 </div>
                 <div className="dialogs">
-                    {isLoupe? <SearchBar searchData= {jobsList}/>: null}
+                    {isLoupe? <SearchBar searchData= {jobsList} cacheName={"jobsCache"}/>: null}
+                    {isNewJob ? <NewJobForm cb={handleNewJob} isCancelButton={true}/> : null}
+                    {isEditing ? <PageBanner/>: null}
+                    
                 </div>
                 {
-                    loading ? <h1>loading...</h1> :
+                    loading ? <div className="bg-blur"><LinearProgressMUI/></div> :
                     error ? <h1>error...</h1> :
-                    <JobBoardMain documents={jobsCache || jobsList}/>
-                }
-                
+                    <JobBoardMain documents={jobsCache || jobsList} />
+                } 
             </main>
         </div>
     )

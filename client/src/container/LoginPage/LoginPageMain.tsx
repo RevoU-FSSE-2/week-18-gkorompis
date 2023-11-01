@@ -27,7 +27,7 @@ const LoginPageMain = () =>{
     const onSubmitFormik = async (values:any) => {
         console.log("form value", values);
 
-        const reduxState = {isToken: true}
+        const reduxState = {isToken: true, isLogin: false}
         dispatch(navigationAction(reduxState) as unknown as AnyAction);
 
     }
@@ -58,7 +58,7 @@ const LoginPageMain = () =>{
 
     return (    
         <div className="app-login-page-main div-center-xy-column bg-blur">
-            <h3 className="app-login-page-main-h3">jobprints</h3>
+            <h3 className="app-login-page-main-h3">jobsprint</h3>
             <CustomizedForm<LoginFormInitialValues> 
                 fields={loginFormFields} 
                 initialValues={loginFormInitialValues} 
@@ -66,6 +66,7 @@ const LoginPageMain = () =>{
                 validationSchema={validationSchema}
                 customFormStyles={customFormStyles}
                 formName={"log in"}       
+                isCancelButton={false}
             />
         </div>
     )

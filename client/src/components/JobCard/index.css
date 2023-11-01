@@ -1,21 +1,23 @@
 .job-card-div{
     background-color: rgba(73, 67, 67, 0.351);
     backdrop-filter: blur(13px);
-    height: 38vh;
+    height: 270px;
     /* padding:10px; */
     border-radius: 10px;
     /* position: relative; */
 }
 
+
 .job-card-info{
     /* background-color: aqua; */
-    height: 77%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
     align-items: start;
     padding-left: 35px;
     padding-right: 20px;
+    cursor: pointer;
     /* position: relative; */
 }
 .job-card-info-top{
@@ -36,6 +38,7 @@
 }
 
 
+
 .job-card-info-bottom > p {
     margin-bottom: 6px;
 }
@@ -43,8 +46,21 @@
     font-size: 14px;
 }    */
 
+@media screen and (max-width: 500px) {
+
+    .job-card-div {
+        /* background-color: blueviolet; */
+        height: 268px;
+    }
+
+    .job-card-info {
+        padding-left: 20px;
+    }
+}
+
 .job-card-title {
-    font-size: 18px
+    font-size: 16px;
+    cursor: pointer;
 }
 .job-card-text {
     font-size: 16px
@@ -58,7 +74,7 @@
     color: #F1F0E8;
     background-color: rgba(73, 67, 67, 0.84);
     backdrop-filter: blur(13px);
-    height: 23%;
+    height: 20%;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     cursor: pointer;
@@ -77,9 +93,9 @@
     background-color: rgba(73, 67, 67, 0.84);
     color: rgba(74, 69, 69, 0.824);
 }
-.job-card-span-text {
+/* .job-card-span-text {
     font-family: "app-logo-font";
-}
+} */
 
 
 /* .job-card-priority-div {
@@ -139,3 +155,43 @@
     padding-right: 5px;
     
 }
+
+
+/* @keyframes colorChange {
+    0% {
+        background-color: rgb(121, 116, 116);
+        color: #93928c;
+    }
+
+    50% {
+        background-color: #93928c;
+        color: rgb(121, 116, 116);
+    }
+
+    100% {
+        background-color: rgb(121, 116, 116);
+        color: #93928c;
+    }
+} */
+@keyframes colorChange {
+    0% {
+        background-color: rgb(123, 52, 52);
+        color: #93928c;
+    }
+
+    50% {
+        background-color: #915858;
+        color: rgb(121, 116, 116);
+    }
+
+    100% {
+        background-color: rgb(123, 52, 52);
+        color: #93928c;
+    }
+}
+
+.job-card-span-loading{
+    animation: colorChange 2s linear infinite;
+}
+.job-card-info-editing-mode{
+    cursor: pointer}

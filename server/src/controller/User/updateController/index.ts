@@ -11,7 +11,7 @@ const Unit = async (req: Request, res: Response) =>{
     try {
         //request parameters
         log(`${controllerName} at ${group}`);
-        const query = req.query || {};
+        const query = req.params || req.query || {};
         const update = req.body || {};
         
         //dao
