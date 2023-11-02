@@ -16,13 +16,13 @@ This is a simple Node.js API application that demonstrates the following deliver
 
 ## 2. Contents
 
-[Project overview](#1-project-overview)
-[Contents](#2-contents)
-[Backend and database deployment](#3-backend-and-database-developement)
-[RBAC](#4-role-based-access-control-authentication-and-security-headers)
-[API Documentation](#5-api-documentation)
-[Frontend development](#6-frontend-development)
-[Deployment](#7-deployment)
+1. [Project overview](#1-project-overview)
+2. [Contents](#2-contents)
+3. [Backend and database deployment](#3-backend-and-database-developement)
+4. [RBAC](#4-role-based-access-control-authentication-and-security-headers)
+5. [API Documentation](#5-api-documentation)
+6. [Frontend development](#6-frontend-development)
+7. [Deployment](#7-deployment)
 
 ## 3. Backend and Database developement
 
