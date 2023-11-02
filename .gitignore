@@ -3,3 +3,4 @@ node_modules/
 deploy.zip
 build
 lambda.js
+.DS_store
