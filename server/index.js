@@ -2,11 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import serverless from 'serverless-http';
 import cookieParser from 'cookie-parser';
-// import awsServerlessExpress from 'aws-serverless-express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
+import { swaggerOptions } from './utils/openapi.js';
 //utils
 import { logger } from './utils/morganConfig.js';
 import { securedHeader } from './utils/securedHeader.js';
 import { userRoute, jobRoute, loginRoute, resetRoute, logoutRoute } from './routes/index.js';
+import { log } from './utils/logger.js';
 const app = express();
 app.use(logger);
 app.use(securedHeader);
@@ -35,6 +38,9 @@ app.use(cors({
     credentials: true,
 }));
 // app.use(cors())
+//openapi
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 //routes
 app.use('/users', userRoute);
 app.use('/jobs', jobRoute);
@@ -42,9 +48,9 @@ app.use('/login', loginRoute);
 app.use('/reset', resetRoute);
 app.use('/logout', logoutRoute);
 console.log(">>> deploy v #5");
-// app.listen(5002, ()=>{
-//     log("listening at", 5002)
-// }) 
+app.listen(5002, () => {
+    log("listening at", 5002);
+});
 // const server = awsServerlessExpress.createServer(app);
 export const handler = serverless(app);
 // export const handler = (event:any, context:any) => awsServerlessExpress.proxy(server, event, context);

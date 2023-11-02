@@ -2,7 +2,7 @@ import request from "supertest";
 import {expect} from 'chai';
 // import {app} from './index.js'
 
-const baseUrl = "https://qtipfa4o65.execute-api.ap-southeast-3.amazonaws.com/dev"
+const baseUrl = "https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev"
 
 describe("login /login/auth return status 200", ()=>{
     it('should return 200 if success', async () =>{

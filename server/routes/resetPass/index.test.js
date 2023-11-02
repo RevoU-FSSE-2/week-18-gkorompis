@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import request from "supertest";
 import { expect } from 'chai';
-const baseUrl = "https://qtipfa4o65.execute-api.ap-southeast-3.amazonaws.com/dev";
+const baseUrl = "https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev";
 describe("login /resetToken", () => {
     it('should return 500 if token is not found', () => __awaiter(void 0, void 0, void 0, function* () {
         const responsePost = yield request(baseUrl)
