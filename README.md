@@ -50,7 +50,8 @@ Backend-side for this application is developed using express js to provide acces
 
 Complete documentation of the API can be found in this swagger documentation
 
-[click link here for swagger documentation](https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev/api-docs)
+click link for wagger documentation:
+[https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev](https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev/api-docs)
 
 ## 6. Frontend Development
 
