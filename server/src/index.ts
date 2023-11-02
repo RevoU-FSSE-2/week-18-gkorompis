@@ -33,6 +33,7 @@ const allowedOrigins = [
     'http://jobsprint.app.s3-website.ap-southeast-3.amazonaws.com',
     'https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev',
     'https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com', 
+    'https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev/api-docs',
     'http://localhost:5002',
     'http://localhost:3000'
 ];
@@ -65,7 +66,7 @@ app.use('/login', loginRoute);
 app.use('/reset', resetRoute);
 app.use('/logout', logoutRoute);
 
-console.log(">>> deploy v #5")
+console.log(">>> deploy v #6")
 app.listen(5002, ()=>{
     log("listening at", 5002)
 }) 
