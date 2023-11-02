@@ -13,8 +13,7 @@ const LandingPageMain = () =>{
     // const [isLogin, setIsLogin] = useState(false);
     const dispatch = useDispatch();
 
-    const customizedButtonHandler = () =>{
-        console.log("customized button clicked now");
+    const customizedButtonHandler = () =>{ 
         // setIsLogin(true);
         
         const reduxState = {isLogin: true, isToken: false}

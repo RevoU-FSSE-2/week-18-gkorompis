@@ -2,6 +2,7 @@
   "type": "module",
   "devDependencies": {
     "@jest/types": "^29.6.3",
+    "@types/aws-serverless-express": "^3.3.7",
     "@types/babel__core": "^7.20.3",
     "@types/bcryptjs": "^2.4.5",
     "@types/chai": "^4.3.9",
@@ -23,6 +24,7 @@
   "dependencies": {
     "@types/cookie-parser": "^1.4.5",
     "@types/cors": "^2.8.15",
+    "aws-serverless-express": "^3.4.0",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

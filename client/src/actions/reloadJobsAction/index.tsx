@@ -7,8 +7,7 @@ const actionTypes = {
 }
 
 const reloadJobsAction = (reduxState:any) => async (dispatch:Dispatch) =>{
-    try {
-        console.log(">>>reloadjobs action triggered")
+    try { 
         //loading
         dispatch({
             type: actionTypes.loading,

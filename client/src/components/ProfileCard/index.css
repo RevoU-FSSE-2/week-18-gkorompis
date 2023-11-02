@@ -11,6 +11,11 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.app-profile-card-img-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .app-profile-card-img {
     width: 90px;
     height: 90px;

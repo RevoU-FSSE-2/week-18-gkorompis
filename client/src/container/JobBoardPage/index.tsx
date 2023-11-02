@@ -1,6 +1,6 @@
 
 import { useEffect, useState} from "react";
-import { AppNavbar, LinearProgressMUI, NewJobForm, PageBanner, SearchBar } from "../../components";
+import { AppNavbar, ErrorBanner, LinearProgressMUI, NewJobForm, PageBanner, SearchBar } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
@@ -37,7 +37,7 @@ const JobBoard = () =>{
     const jobsCache = jobsCollection && jobsCollection.jobsCache;
 
     const jobsState = useSelector((state:any)=> state.jobs);
-    const {loading, error, payload}  = jobsState;
+    const {loading, error, payload, message}  = jobsState;
     const jobsList = payload && payload || [];
 
     const reloadJobsState = useSelector((state:any)=> state.cache);
@@ -46,13 +46,14 @@ const JobBoard = () =>{
 
     const editingState = useSelector((state:any)=> state.editing);
     const editingPayload = editingState && editingState.payload;
-    const isEditing = editingPayload && editingPayload.isEditing;
-    console.log("isEditing", isEditing)
+    const isEditing = editingPayload && editingPayload.isEditing; 
+
+    const sessionProfileState = useSelector((state:any)=> state.sessionProfile);
+    const sessionProfile = sessionProfileState && sessionProfileState.payload;
     
     
 
-    useEffect(()=>{
-        console.log("use effect triggerred")
+    useEffect(()=>{ 
         dispatch( jobsAction(jobsList) as unknown as AnyAction)
     }, [dispatch, reloadJobsState])
     return (
@@ -65,7 +66,7 @@ const JobBoard = () =>{
                     
                     <h3 className="app-jobsboard-page-main-logo-font">jobsprint</h3>
                 </div>
-                <div className="app-icon-container">
+                {/* <div className="app-icon-container">
                     <div className="app-icon-bar">
                         <img className="app-logo-img app-logo-add" src="/add.png" onClick={handleNewJob}/>
                         <img className="app-logo-img app-logo-edit" src="/editing.png" onClick={()=>handleEditing(isEditing)}/>
@@ -77,12 +78,28 @@ const JobBoard = () =>{
                     {isLoupe? <SearchBar searchData= {jobsList} cacheName={"jobsCache"}/>: null}
                     {isNewJob ? <NewJobForm cb={handleNewJob} isCancelButton={true}/> : null}
                     {isEditing ? <PageBanner/>: null}
-                    
-                </div>
+                </div> */}
                 {
                     loading ? <div className="bg-blur"><LinearProgressMUI/></div> :
-                    error ? <h1>error...</h1> :
-                    <JobBoardMain documents={jobsCache || jobsList} />
+                    error ? <ErrorBanner message={message}/>: 
+                    <>
+                        <div className="app-icon-container">
+                            <div className="app-icon-bar">
+                                <img className="app-logo-img app-logo-add" src="/add.png" onClick={handleNewJob}/>
+                                <img className="app-logo-img app-logo-edit" src="/editing.png" onClick={()=>handleEditing(isEditing)}/>
+                                <img className="app-logo-img app-logo-loupe" src="/loupe.png" onClick={handleLoupe}/>
+                                
+                            </div>
+                        </div>
+                        <div className="dialogs">
+                            {isLoupe? <SearchBar searchData= {jobsList} cacheName={"jobsCache"}/>: null}
+                            {isNewJob ? <NewJobForm cb={handleNewJob} isCancelButton={true} sessionProfile={sessionProfile}/> : null}
+                            {isEditing ? <PageBanner/>: null}
+                            
+                        </div>
+                        <JobBoardMain documents={jobsCache || jobsList} />
+                    </>
+                    
                 } 
             </main>
         </div>

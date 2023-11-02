@@ -3,7 +3,7 @@
 import { Dispatch } from "redux"
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:5002'
+const baseUrl = "https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev" || "http://localhost:5002"
 
 const actionTypes = {
     loading: 'USERS_LOADING',
@@ -12,9 +12,8 @@ const actionTypes = {
 }
 
 const fetchCollectionUsers = async (baseUrl:string) =>{
-    const response = await axios.get(`${baseUrl}/users`)
-    const {data }= response;
-    // console.log({response});
+    const response = await axios.get(`${baseUrl}/users`, {withCredentials: true})
+    const {data }= response; 
     return data;
 }
 
@@ -28,19 +27,19 @@ const usersAction = (reduxState:any) => async (dispatch:Dispatch) =>{
 
         // action
         const response = await fetchCollectionUsers(baseUrl);
-        reduxState = response;
-        console.log(">>>reduxState", {response})
+        reduxState = response; 
         
         //success
         dispatch({
             type: actionTypes.success,
             payload: reduxState,
         })
-    } catch(error){
-        //error
+    } catch(error:any){
+        //error 
+        const errorMessage = error && error.message 
         dispatch({
             type: actionTypes.error,
-            message: error,
+            message: errorMessage,
         })
     }
 }

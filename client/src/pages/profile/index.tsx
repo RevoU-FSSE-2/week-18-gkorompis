@@ -14,8 +14,7 @@ const changeBackgroundPerInterval = (cb:any) =>{
             const min = 100;
             const max = 101;
             const newRandomNumber = Math.floor(Math.random() * (max - min + 1) + min);
-            cb(newRandomNumber);
-            // console.log(">>>random number", newRandomNumber);
+            cb(newRandomNumber); 
         }, 30000); // 30 seconds in milliseconds
 
         return () => {

@@ -6,7 +6,7 @@ import { ErrorResponse } from "../../../utils/types.js"
 
 const Unit = async (req:Request, res:Response) =>{
     try {
-        console.log("fixing cookies try 13.5")
+        console.log("clearing cookies")
          // sign body to jwt;
         // res.cookie('sessionLogout', "a", {httpOnly: true, domain: "5vxe1u381g.execute-api.ap-southeast-3.amazonaws.com", secure: true});
         res.cookie('sessionLogout1', "logoutsuccess13.4", {sameSite: 'none', secure: true});

@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom"
 
 
 const redirecting = (cb:any) =>{
-        setTimeout(()=>{
-            console.log("redirecting goes")
+        setTimeout(()=>{ 
             cb('/')
         }, 1000)
     }

@@ -6,12 +6,18 @@ import { AnyAction } from "@reduxjs/toolkit";
 
 import { dummyDataJobs } from "../../actions/jobsAction/data";
 
-import { JobCard } from "../../components";
+import { EmptyContentBanner, JobCard } from "../../components";
 import { AnyAaaaRecord } from "dns";
 
 const sortMostRecent = (a:any, b:any) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
+    // @ts-ignore
+    return dateB - dateA;
+}
+const sortAToZ = (a:any, b:any) => {
+    const dateA = new Date(a.username);
+    const dateB = new Date(b.username);
     // @ts-ignore
     return dateB - dateA;
 }
@@ -32,7 +38,7 @@ const JobBoardMain = ({documents, cb}:any) =>{
                     sortedJobsList[0] ?  
                         jobsList.map((x:any, key:any)=>{
                         return <><JobCard key={key}  document={x} /></>
-                    }) : <h1>collection not found</h1>
+                    }) : <EmptyContentBanner message={"empty collection"}/>
                 }
             </div>
         </>

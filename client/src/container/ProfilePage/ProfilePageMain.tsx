@@ -15,17 +15,23 @@ const sortMostRecent = (a:any, b:any) => {
     // @ts-ignore
     return dateB - dateA;
 }
+const sortAToZ = (a:any, b:any) => {
+    const dateA = new Date(a.username);
+    const dateB = new Date(b.username);
+    // @ts-ignore
+    return dateB - dateA;
+}
 
 
 const ProfilePageMain = ({documents, cb}:any) =>{
     const jobsList = documents || [];
     // const sortedJobsList = jobsList[0] ? jobsList.sort(sortMostRecent) : []
-    const sortedJobsList = jobsList[0] ? jobsList.reverse() : []
+    const sortedJobsList = jobsList[0] ? jobsList.sort(sortAToZ) : []
 
     return (
         <>
             {
-                sortedJobsList[0] ? <div className="collection-info-div"><p>Found {jobsList.length} jobs in collection</p></div> : null
+                sortedJobsList[0] ? <div className="collection-info-div"><p>Found {jobsList.length} users in collection</p></div> : null
             }
             <div className="app-jobsboard-page-main jobcard-grid-col2">
                 

@@ -5,7 +5,8 @@ import {
     cacheReducer, 
     reloadJobsReducer,
     editingReducer,
-    usersReducer
+    usersReducer,
+    sessionProfileReducer
 } from "../reducers";
 
 import thunk from "redux-thunk";
@@ -17,7 +18,8 @@ const store = configureStore({
         cache: cacheReducer,
         reloadJobs: reloadJobsReducer,
         editing: editingReducer,
-        users: usersReducer
+        users: usersReducer,
+        sessionProfile: sessionProfileReducer
     },
     middleware: [thunk]
 })

@@ -1,4 +1,4 @@
-import { CustomizedForm } from "..";
+import { CustomizedForm, SnackBarMui } from "..";
 import * as Yup from 'yup'
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ import { AnyAction } from '@reduxjs/toolkit';
 
 
 import "./index.css"
+import { useState } from "react";
 
 interface ModalFormInitialValues {
     name: string,
@@ -22,7 +23,9 @@ interface ModalFormProps {
 
 const ModalForm = ({cb, documents}:ModalFormProps) =>{
 
-    const baseUrl = "http://localhost:5002"
+    const [openSnackBar,setOpenSnackBar] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const baseUrl = "https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev" || "http://localhost:5002"
 
     const dispatch = useDispatch();
     
@@ -40,14 +43,21 @@ const ModalForm = ({cb, documents}:ModalFormProps) =>{
         role: documents && documents.role,
     }
     const onSubmitFormik = async (values:any) => {
-        console.log("form value", values);
-        
-        const documentId = documents && documents._id;
-        alert(documentId);
-        const response = await axios.put(`${baseUrl}/users/one/${documentId}`, values);
-        dispatch(usersAction(undefined) as unknown as AnyAction)
-        dispatch(cacheAction(undefined) as unknown as AnyAction)
-        cb()
+        try { 
+            
+            const documentId = documents && documents._id;
+            alert(documentId);
+            const response = await axios.put(`${baseUrl}/users/one/${documentId}`, values, {withCredentials: true});
+            dispatch(usersAction(undefined) as unknown as AnyAction)
+            dispatch(cacheAction(undefined) as unknown as AnyAction)
+            cb()  
+        } catch (error:any) { 
+            const {message, response} = error;
+            const data = response && response.data;
+            const messageServer = data && data.message;
+            setErrorMessage(`${message}. ${messageServer}`);
+            setOpenSnackBar(!openSnackBar)
+        }
     }
 
     const validationSchema = {
@@ -76,19 +86,25 @@ const ModalForm = ({cb, documents}:ModalFormProps) =>{
     }
 
     return (    
-        <div className="app-modal-form div-center-xy-column bg-blur">
-            <h3 className="app-modal-form-h3">jobprints</h3>
-            <CustomizedForm<ModalFormInitialValues> 
-                fields={userFormFields} 
-                initialValues={userFormInitialValues} 
-                onSubmitFormik={onSubmitFormik} 
-                validationSchema={validationSchema}
-                customFormStyles={customFormStyles}
-                formName={"edit user"} 
-                cb={cb}      
-                isCancelButton={true}
-            />
-        </div> 
+        <>
+            <div className="app-modal-form div-center-xy-column bg-blur">
+                <h3 className="app-modal-form-h3">jobprints</h3>
+                <CustomizedForm<ModalFormInitialValues> 
+                    fields={userFormFields} 
+                    initialValues={userFormInitialValues} 
+                    onSubmitFormik={onSubmitFormik} 
+                    validationSchema={validationSchema}
+                    customFormStyles={customFormStyles}
+                    formName={"edit user"} 
+                    cb={cb}      
+                    isCancelButton={true}
+                />
+            </div> 
+            <div>
+                <SnackBarMui openSnackBar={openSnackBar} setOpenSnackBar={setOpenSnackBar} message={errorMessage}/>
+            </div>
+        </>
+        
     )
 };
 

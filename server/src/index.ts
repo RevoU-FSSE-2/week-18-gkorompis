@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors'
 import serverless from 'serverless-http';
 import cookieParser from 'cookie-parser';
-
+// import awsServerlessExpress from 'aws-serverless-express';
 
 //utils
 import { logger } from './utils/morganConfig.js';
@@ -27,10 +27,9 @@ app.use(cookieParser());
 
 //cors
 const allowedOrigins = [
-    'http://week17.app.s3-website.ap-southeast-3.amazonaws.com',
-    'https://dwampb0q8b.execute-api.ap-southeast-3.amazonaws.com',
-    'https://dwampb0q8b.execute-api.ap-southeast-3.amazonaws.com/dev',
-    'http://localhost:5001',
+    'http://jobsprint.app.s3-website.ap-southeast-3.amazonaws.com',
+    'https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev',
+    'https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com', 
     'http://localhost:5002',
     'http://localhost:3000'
 ];
@@ -50,7 +49,7 @@ app.use(
     credentials: true,
   })
 );
-
+// app.use(cors())
 //routes
 app.use('/users', userRoute);
 app.use('/jobs', jobRoute);
@@ -58,8 +57,11 @@ app.use('/login', loginRoute);
 app.use('/reset', resetRoute);
 app.use('/logout', logoutRoute);
 
-app.listen(5002, ()=>{
-    log("listening at", 5002)
-}) 
+console.log(">>> deploy v #5")
+// app.listen(5002, ()=>{
+//     log("listening at", 5002)
+// }) 
 
+// const server = awsServerlessExpress.createServer(app);
 export const handler = serverless(app);
+// export const handler = (event:any, context:any) => awsServerlessExpress.proxy(server, event, context);

@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect , useState} from "react";
 import { navigationAction} from "../../actions";
 import { AnyAction } from "@reduxjs/toolkit";
+import { LinearProgressMUI } from "../../components";
+
+import jwt from 'jwt-decode'
 
 
 const changeBackgroundPerInterval = (cb:any) =>{
@@ -32,7 +35,7 @@ const AppComponent = () =>{
 
     const dispatch = useDispatch();
     const navigationState = useSelector((state:any)=>state.navigation)
-    const {loading, error, payload} = navigationState;
+    const {loading, error, payload, message} = navigationState;
     const isLogin = payload && payload.isLogin;
     const isToken = payload && payload.isToken;
     
@@ -47,8 +50,8 @@ const AppComponent = () =>{
     return (
         <div id="app-page-home" className="app-pages" style={appPagesStyle}>
             {
-                loading ? <h1>loading...</h1> :
-                error ? <h1> error </h1> :
+                loading ? <LinearProgressMUI/> :
+                error ? <h1> {message} </h1> : 
                 (<>
                     {
                         isToken ? <JobBoardPage/> : 

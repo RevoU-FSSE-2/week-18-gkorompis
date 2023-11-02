@@ -1,4 +1,4 @@
-import { CustomizedForm } from "..";
+import { CustomizedForm, SnackBarMui } from "..";
 import * as Yup from 'yup'
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ import { AnyAction } from '@reduxjs/toolkit';
 
 
 import "./index.css"
+import { useState } from "react";
 
 interface ModalFormInitialValues {
     createdBy: string,
@@ -17,12 +18,17 @@ interface ModalFormInitialValues {
 }
 interface ModalFormProps {
     cb?:any;
-    isCancelButton: boolean
+    isCancelButton: boolean;
+    sessionProfile?: any;
 }
 
-const ModalForm = ({cb, isCancelButton}:ModalFormProps) =>{
+const ModalForm = ({cb, isCancelButton, sessionProfile}:ModalFormProps) =>{
 
-    const baseUrl = "http://localhost:5002"
+    const {username} = sessionProfile
+
+    const [openSnackBar,setOpenSnackBar] = useState(false)
+    const [errorMessage, setErrorMessage] = useState(false)
+    const baseUrl = "https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev" || "http://localhost:5002"
 
     const dispatch = useDispatch();
     
@@ -34,20 +40,25 @@ const ModalForm = ({cb, isCancelButton}:ModalFormProps) =>{
     ]
 
     const loginFormInitialValues = {
-        createdBy: "",
-        stakeholder: "",
+        createdBy: username,
+        stakeholder: username,
         job: "",
         externalId: ""
     }
 
     const onSubmitFormik = async (values:any) => {
-        console.log("form value", values);
-        const response = await axios.post(`${baseUrl}/jobs`, values);
-        console.log(response)
-        const reduxState = {isToken: true}
-        dispatch(jobsAction(undefined) as unknown as AnyAction)
-        dispatch(cacheAction(undefined) as unknown as AnyAction)
-        cb()
+        try { 
+            const response = await axios.post(`${baseUrl}/jobs`, values, {withCredentials: true}); 
+            const reduxState = {isToken: true}
+            dispatch(jobsAction(undefined) as unknown as AnyAction)
+            dispatch(cacheAction(undefined) as unknown as AnyAction)
+            cb()
+        } catch (error:any ){ 
+            const {message} = error;
+            setErrorMessage(message);
+            setOpenSnackBar(!openSnackBar)
+        }
+        
         // dispatch(navigationAction(reduxState) as unknown as AnyAction);
 
     }
@@ -78,19 +89,25 @@ const ModalForm = ({cb, isCancelButton}:ModalFormProps) =>{
     }
 
     return (    
-        <div className="app-modal-form div-center-xy-column bg-blur">
-            <h3 className="app-modal-form-h3">jobprints</h3>
-            <CustomizedForm<ModalFormInitialValues> 
-                fields={loginFormFields} 
-                initialValues={loginFormInitialValues} 
-                onSubmitFormik={onSubmitFormik} 
-                validationSchema={validationSchema}
-                customFormStyles={customFormStyles}
-                formName={"new job"}    
-                cb={cb}
-                isCancelButton={true}   
-            />
-        </div>
+        <>
+            <div className="app-modal-form div-center-xy-column bg-blur">
+                <h3 className="app-modal-form-h3">jobprints</h3>
+                <CustomizedForm<ModalFormInitialValues> 
+                    fields={loginFormFields} 
+                    initialValues={loginFormInitialValues} 
+                    onSubmitFormik={onSubmitFormik} 
+                    validationSchema={validationSchema}
+                    customFormStyles={customFormStyles}
+                    formName={"new job"}    
+                    cb={cb}
+                    isCancelButton={true}   
+                />
+            </div>
+            <div>
+                <SnackBarMui openSnackBar={openSnackBar} setOpenSnackBar={setOpenSnackBar} message={errorMessage}/>
+            </div>
+        </>
+        
     )
 };
 

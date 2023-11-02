@@ -1,6 +1,6 @@
 
 import { useEffect, useState} from "react";
-import { AppNavbar, LinearProgressMUI, NewUserForm, PageBanner, SearchBar } from "../../components";
+import { AppNavbar, ErrorBanner, LinearProgressMUI, NewUserForm, PageBanner, SearchBar } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
@@ -37,7 +37,7 @@ const JobBoard = () =>{
     const usersCache = usersCollection && usersCollection.usersCache;
 
     const usersState = useSelector((state:any)=> state.users);
-    const {loading, error, payload}  = usersState;
+    const {loading, error, payload, message}  = usersState;
     const usersList = payload && payload || [];
 
     const reloadJobsState = useSelector((state:any)=> state.cache);
@@ -51,8 +51,7 @@ const JobBoard = () =>{
     
     
 
-    useEffect(()=>{
-        console.log("use effect triggerred")
+    useEffect(()=>{ 
         dispatch( usersAction(usersList) as unknown as AnyAction)
     }, [dispatch, reloadJobsState])
     return (
@@ -65,24 +64,27 @@ const JobBoard = () =>{
                     
                     <h3 className="app-jobsboard-page-main-logo-font">jobsprint</h3>
                 </div>
-                <div className="app-icon-container">
-                    <div className="app-icon-bar">
-                        <img className="app-logo-img app-logo-add" src="/add.png" onClick={handleNewUser}/>
-                        <img className="app-logo-img app-logo-edit" src="/editing.png" onClick={()=>handleEditing(isEditing)}/>
-                        <img className="app-logo-img app-logo-loupe" src="/loupe.png" onClick={handleLoupe}/>
-                        
-                    </div>
-                </div>
-                <div className="dialogs">
-                    {isLoupe? <SearchBar searchData= {usersList} cacheName={"usersCache"}/>: null}
-                    {isNewUser ? <NewUserForm cb={handleNewUser} isCancelButton={true}/> : null}
-                    {isEditing ? <PageBanner/>: null}
-                    
-                </div>
                 {
                     loading ? <div className="bg-blur"><LinearProgressMUI/></div> :
-                    error ? <h1>error...</h1> :
-                    <ProfilePageMain documents={usersCache || usersList} />
+                    error ? <ErrorBanner message ={message}/>:
+                    <>
+                        <div className="app-icon-container">
+                            <div className="app-icon-bar">
+                                <img className="app-logo-img app-logo-add" src="/add.png" onClick={handleNewUser}/>
+                                <img className="app-logo-img app-logo-edit" src="/editing.png" onClick={()=>handleEditing(isEditing)}/>
+                                <img className="app-logo-img app-logo-loupe" src="/loupe.png" onClick={handleLoupe}/>
+                                
+                            </div>
+                        </div>
+                        <div className="dialogs">
+                            {isLoupe? <SearchBar searchData= {usersList} cacheName={"usersCache"}/>: null}
+                            {isNewUser ? <NewUserForm cb={handleNewUser} isCancelButton={true}/> : null}
+                            {isEditing ? <PageBanner/>: null}
+                            
+                        </div>
+                        <ProfilePageMain documents={usersCache || usersList} />
+                    </>
+                    
                 } 
             </main>
         </div>

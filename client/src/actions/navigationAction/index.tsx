@@ -23,6 +23,7 @@ const navigationAction = (reduxState:any) => async (dispatch:Dispatch) =>{
         })
     } catch(error){
         //error
+        console.log(">>>action error", {actionError: error})
         dispatch({
             type: actionTypes.error,
             message: error,

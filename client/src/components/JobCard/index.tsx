@@ -6,6 +6,8 @@ import { useSelector,useDispatch } from "react-redux";
 import { cacheAction, jobsAction } from "../../actions";
 import { AnyAction } from "@reduxjs/toolkit";
 import { EditJobForm } from "..";
+
+import { CustomizedForm, SnackBarMui } from "..";
 interface JobCardProps {
     key: string,
     document: any,
@@ -20,12 +22,17 @@ interface JobCardProps {
 //     }
 // }
 
-const baseUrl = "http://localhost:5002"
+
 
 const JobCard = ({document, cb}: JobCardProps) =>{
 
     const dispatch = useDispatch()
 
+    const [openSnackBar,setOpenSnackBar] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+
+    const baseUrl = "https://edpkdmygqf.execute-api.ap-southeast-3.amazonaws.com/dev" || "http://localhost:5002"
+    
     const [isDropdown, setIsDropdown] = useState(false)
     const [priorityLabel, setPriorityLabel] = useState("HIGH")
     const [progressLabel, setProgressLabel] = useState("todo");
@@ -40,52 +47,63 @@ const JobCard = ({document, cb}: JobCardProps) =>{
     const isEditing = editingPayload && editingPayload.isEditing;
 
     const dropdownHandler = (event:any) =>{
-        const divText = event.target.textContent;
-        console.log(divText);
+        const divText = event.target.textContent; 
         setPriorityLabel(divText);
         setIsDropdown(!isDropdown);
     };
 
     const dropdownItemHandler = async (event: any) =>{
+        try {
+            const divText = event.target.textContent; 
+            setPriorityLabel(divText);
+            setIsDropdown(!isDropdown); 
 
-        const divText = event.target.textContent;
-        console.log(divText);
-        setPriorityLabel(divText);
-        setIsDropdown(!isDropdown);
-        console.log("invoke redux reloadJobs");
-
-        const reduxState = undefined;
-        const update = {
-            priority: divText
+            const reduxState = undefined;
+            const update = {
+                priority: divText
+            }
+            const documentId = document && document._id || ""
+            const responsePut = await axios.put(`${baseUrl}/jobs/one/${documentId}`, update, {withCredentials: true});
+            const data = responsePut && responsePut.data;
+            const modifiedCount = data && data.modifiedCount || "nan"
+            // alert("modifiedCount " + modifiedCount)
+            dispatch(jobsAction(reduxState) as unknown as AnyAction);
+            dispatch(cacheAction(reduxState) as unknown as AnyAction);
+        } catch (error:any) { 
+            const {message, response} = error;
+            const data = response && response.data;
+            const messageServer = data && data.message;
+            setErrorMessage(`${message}. ${messageServer}`);
+            setOpenSnackBar(!openSnackBar)
         }
-        const documentId = document && document._id || ""
-        const responsePut = await axios.put(`${baseUrl}/jobs/one/${documentId}`, update);
-        const data = responsePut && responsePut.data;
-        const modifiedCount = data && data.modifiedCount || "nan"
-        // alert("modifiedCount " + modifiedCount)
-        dispatch(jobsAction(reduxState) as unknown as AnyAction);
-        dispatch(cacheAction(reduxState) as unknown as AnyAction);
+        
     }
 
     const jobSpanHandler = async () =>{
-        console.log(">>jobSpanHandler")
-        let jobProgress = "doing"
-        jobProgress = progressLabel == jobProgress ? "done" : jobProgress
-        const update = {
-            jobProgress
+        try { 
+            let jobProgress = "doing"
+            jobProgress = progressLabel == jobProgress ? "done" : jobProgress
+            const update = {
+                jobProgress
+            }
+            const documentId = document && document._id || ""
+            const responsePut = await axios.put(`${baseUrl}/jobs/one/${documentId}`, update, {withCredentials: true});
+            const data = responsePut && responsePut.data;
+            const modifiedCount = data && data.modifiedCount || "nan" 
+
+            const reduxState = undefined;
+            dispatch(jobsAction(reduxState) as unknown as AnyAction);
+            dispatch(cacheAction(reduxState) as unknown as AnyAction);
+
+            setProgressLabel(jobProgress);
+        } catch (error:any) { 
+            const {message, response} = error;
+            const data = response && response.data;
+            const messageServer = data && data.message;
+            setErrorMessage(`${message}. ${messageServer}`);
+            setOpenSnackBar(!openSnackBar)
         }
-        const documentId = document && document._id || ""
-        const responsePut = await axios.put(`${baseUrl}/jobs/one/${documentId}`, update);
-        const data = responsePut && responsePut.data;
-        const modifiedCount = data && data.modifiedCount || "nan"
-        // alert("modifiedCount " + modifiedCount)
-        // console.log({modifiedCount});
-
-        const reduxState = undefined;
-        dispatch(jobsAction(reduxState) as unknown as AnyAction);
-        dispatch(cacheAction(reduxState) as unknown as AnyAction);
-
-        setProgressLabel(jobProgress);
+        
     };
 
     const onHoverHandler = () =>{
@@ -93,15 +111,23 @@ const JobCard = ({document, cb}: JobCardProps) =>{
     }
 
     const deleteHandler = async () =>{
-        const documentId = document && document._id || ""
-        alert("delete" + documentId);
-        const response = await axios.delete(`${baseUrl}/jobs/one/${documentId}`)
-        const {data} = response as any;
-        const deletedCount = response && data.deletedCount;
-        alert("deletedCount " + deletedCount);
-        const reduxState = undefined;
-        dispatch(jobsAction(reduxState) as unknown as AnyAction);
-        dispatch(cacheAction(reduxState) as unknown as AnyAction);
+        try {
+            const documentId = document && document._id || ""
+            alert("delete" + documentId);
+            const response = await axios.delete(`${baseUrl}/jobs/one/${documentId}`, {withCredentials: true})
+            const {data} = response as any;
+            const deletedCount = response && data.deletedCount;
+            alert("deletedCount " + deletedCount);
+            const reduxState = undefined;
+            dispatch(jobsAction(reduxState) as unknown as AnyAction);
+            dispatch(cacheAction(reduxState) as unknown as AnyAction);
+        } catch (error:any) { 
+            const {message, response} = error;
+            const data = response && response.data;
+            const messageServer = data && data.message;
+            setErrorMessage(`${message}. ${messageServer}`);
+            setOpenSnackBar(!openSnackBar)
+        }
     }
 
     const editFormHandler = async () =>{
@@ -136,6 +162,7 @@ const JobCard = ({document, cb}: JobCardProps) =>{
                             </div>
                             {
                                 isDropdown ? 
+                                isEditing ? null:
                                 <div className="job-card-priority-dropdown">
                                     <p className="job-card-priority-dropdown-item" onClick={dropdownItemHandler}>HIGH</p>
                                     <p className="job-card-priority-dropdown-item" onClick={dropdownItemHandler}>MED</p>
@@ -169,6 +196,11 @@ const JobCard = ({document, cb}: JobCardProps) =>{
                 </div>
             </div>
             {isEditForm ? <EditJobForm cb={()=>setIsEditForm(!isEditForm)} documents={document}/>: null }
+            {openSnackBar ? 
+                <SnackBarMui openSnackBar={openSnackBar} setOpenSnackBar={setOpenSnackBar} message={errorMessage}/>
+             : null
+            }
+            
             
         </>
     )

@@ -8,13 +8,13 @@ const Unit = (req:Request, res:Response, next:NextFunction) =>{
     const {sessionUsername, sessionRole} = req.cookies;
 
     if(sessionRole=="member"){
-        console.log(">>> restrict create service request for role member")
+        console.log(">>> restrict create for role member")
         req.body = {
             ...body,
-            requestedBy: sessionUsername
+            createdBy: sessionUsername
         }
     };
-    console.log(">>> passed at restrict create service request");
+    console.log(">>> passed at restrict create");
     next()
 };
 

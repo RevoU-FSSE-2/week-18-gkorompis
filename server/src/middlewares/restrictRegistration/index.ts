@@ -8,10 +8,12 @@ const Unit = async (req:Request, res:Response, next: NextFunction) =>{
         if(!body){return res.status(400).json({message: "Bad request at request body!"})};
         const {username, email} = body;
         let query = {username} as any;
+        console.log("")
         const fetchedUser0 = await findDocByQuery({query});
         query = {email};
         const fetchedUser1 = await findDocByQuery({query});
 
+        
         console.log(">>> fetchUser0", fetchedUser0);
         if(fetchedUser0[0]){ 
             console.log(">>> failed restriction new user only");

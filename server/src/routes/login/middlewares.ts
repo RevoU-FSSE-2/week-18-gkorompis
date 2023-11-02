@@ -7,7 +7,7 @@ import {
 
 export const loginPostMiddlewares = [
     setXRequestIdHeader,
-    loginLimiter,
+    // loginLimiter,
     authenticateLogin,
 ]
 

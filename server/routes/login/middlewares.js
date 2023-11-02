@@ -1,7 +1,7 @@
-import { authenticateLogin, setXRequestIdHeader, loginLimiter } from "../../middlewares/index.js";
+import { authenticateLogin, setXRequestIdHeader } from "../../middlewares/index.js";
 export const loginPostMiddlewares = [
     setXRequestIdHeader,
-    loginLimiter,
+    // loginLimiter,
     authenticateLogin,
 ];
 export const refreshPostMiddlewares = [

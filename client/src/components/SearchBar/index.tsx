@@ -14,8 +14,7 @@ const SearchBar = ({searchData, cacheName}:any) =>{
     
 
     const handleSearch = (data:never[]) => {
-
-        console.log('>>>data', data)
+ 
         const results = data.filter((item:any) => {
         for (const key in item) {
             if (typeof item[key] === 'string' && item[key].toLowerCase().includes(searchText.toLowerCase())) {
@@ -27,15 +26,13 @@ const SearchBar = ({searchData, cacheName}:any) =>{
         const newField:any = {};
         newField[cacheName] = results;
 
-        const newCache = {...payload, ...newField};
-        console.log("newCache", newCache);
+        const newCache = {...payload, ...newField}; 
 
         
         dispatch( cacheAction(newCache) as unknown as AnyAction)
     };
 
-    const handleEnter = (e:any) =>{
-        // console.log(">>>",e.key)
+    const handleEnter = (e:any) =>{ 
         if(e.key==='Enter'){
            handleSearch(searchData)
         }

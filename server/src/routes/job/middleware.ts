@@ -1,7 +1,7 @@
 import {
     permitRole,
     authenticateToken,
-    restrictCreateServiceRequest,
+    restrictCreate,
     setXRequestIdHeader
 } from  "../../middlewares/index.js";
 
@@ -10,7 +10,7 @@ export const jobsPostMiddlewares = [
     setXRequestIdHeader,
     authenticateToken,
     permitRole(['admin', 'member'], "jobs"),
-    restrictCreateServiceRequest
+    restrictCreate
 ]
 export const jobsGetMiddlewares = [
     setXRequestIdHeader,

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const Unit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("fixing cookies try 13.5");
+        console.log("clearing cookies");
         // sign body to jwt;
         // res.cookie('sessionLogout', "a", {httpOnly: true, domain: "5vxe1u381g.execute-api.ap-southeast-3.amazonaws.com", secure: true});
         res.cookie('sessionLogout1', "logoutsuccess13.4", { sameSite: 'none', secure: true });

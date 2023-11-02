@@ -18,6 +18,7 @@ const Unit = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () 
         ;
         const { username, email } = body;
         let query = { username };
+        console.log("");
         const fetchedUser0 = yield findDocByQuery({ query });
         query = { email };
         const fetchedUser1 = yield findDocByQuery({ query });

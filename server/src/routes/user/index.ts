@@ -20,25 +20,25 @@ const {
 
 userRoute.post(
     '/',
-    // userPostMiddlewares,
+    userPostMiddlewares,
     postController
 )
 
 userRoute.get(
     '/', 
-    // userGetMiddlewares,
+    userGetMiddlewares,
     getController
 )
 
 userRoute.put(
     '/one/:_id', 
-    // userPutMiddlewares,
+    userPutMiddlewares,
     updateController
 )
 
 userRoute.delete(
     '/one/:_id',
-    // userDeleteMiddlewares,
+    userDeleteMiddlewares,
     deleteController
 )
 
